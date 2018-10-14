@@ -31,7 +31,11 @@ public class GistsCRUDRestClientTest extends GistsApiBaseTest {
 
         if (userGists != null) {
             for (Gist userGist : userGists) {
-                crudRestClient.deleteGist(userGist.getId());
+                try {
+                    crudRestClient.deleteGist(userGist.getId());
+                } catch (RestClientException e) {
+                    // ignore if gist does not exist
+                }
             }
         }
     }
